@@ -1,0 +1,729 @@
+/* Supprimer toute marge ou padding au-dessus du carrousel */
+#carouselExampleIndicators {
+  
+  padding-top: 0%; /* Supprime le padding au-dessus du carrousel */
+}
+
+/* Ajuster la hauteur du carrousel pour qu'il occupe tout l'écran */
+.carousel-inner, .carousel-item {
+  height: 70%; /* Assurez-vous que le carrousel prend toute la hauteur disponible */
+}
+
+
+/* Pour les petits écrans, ajustez la hauteur */
+@media (max-width: 768px) {
+  #carouselExampleIndicators {
+      height: 300px; /* Ajuste la hauteur pour les petits écrans */
+      z-index: 1;                                                                  /*mofifier pour que le devient en arrire de navbar quand je fais hover dans les petites d'ecran*/
+  }
+}
+
+#carouselExampleIndicators {  /* Force la suppression de la marge au-dessus du carrousel */
+  padding-top: 0 !important; /* Force la suppression du padding au-dessus du carrousel */
+}
+
+
+
+/* ----------------------- */
+#carouselExampleIndicators {
+  /*height: 800px; /* Hauteur totale du carrousel */
+  height: 90vh;                                                                /*hauteur de la carroussel*/
+  
+}
+
+.carousel-inner {
+  /*height: 100%; /* Étend la hauteur interne */
+  height: 100%;
+}
+
+.carousel-item {
+  height: 100%; /* Assure que chaque slide utilise toute la hauteur */
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%; /* Ajuste l'image à la hauteur du carrousel */
+  object-fit: cover; /* S'assure que l'image remplit sans déformation */
+}
+
+
+
+/* .carousel-item img {
+  width: 100%;
+  height: auto !important;
+  object-fit: cover;
+} */
+
+/* #carouselExampleIndicators {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 70vh;
+  overflow: hidden;
+  margin: 0 auto;
+} */
+
+.carousel-control-prev,
+.carousel-control-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .carousel-item img {
+      height: 300px;
+  }
+
+  #carouselExampleIndicators {
+      max-height: 300px;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+      width: 30px;
+      height: 30px;
+  }
+}
+
+
+
+#carouselExampleIndicators {
+  width: 100%;
+  max-width: none; /* Supprime la limite maximale */
+  margin: 0; /* Pas de centrage */
+}
+
+.carousel-item img {
+  width: 100%; /* Images pleines largeur */
+  height: auto;
+  object-fit: cover; /* Remplit sans distorsion */
+}
+
+@media (max-width: 768px) {
+  #carouselExampleIndicators {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+  }
+
+  .carousel-item img {
+      height: 300px; /* Ajuste la hauteur pour les petits écrans */
+  }
+}
+
+
+/* Responsive pour les tablettes (iPad, entre 768px et 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #carouselExampleIndicators {
+      height: 500px; /* Ajuste la hauteur du carrousel pour les tablettes */
+  }
+
+  .carousel-item img {
+      height: 500px; /* Ajuste les images pour qu'elles s'adaptent */
+      object-fit: cover; /* Remplit sans déformation */
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+      width: 35px; /* Taille des contrôles légèrement réduite */
+      height: 35px;
+  }
+
+  .carousel-indicators button {
+      width: 10px; /* Boutons des indicateurs plus petits */
+      height: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/*------------------------------------------------- Carroussel  logo ---------------------------------------------------*/
+
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100px; /* Ajuste en fonction de la hauteur des logos */
+  background-color: #f9f9f9;
+}
+
+.icon-container img {
+  width: 50px; /* Taille standard */
+  height: 50px; /* Taille standard */
+  object-fit: contain; /* Conserve les proportions */
+  margin: 10px; /* Espacement entre les icônes */
+}
+
+
+.carousel-track {
+  display: flex;
+  animation: scroll 15s linear infinite;
+}
+
+.carousel-logo {
+  flex-shrink: 0;
+  width: 80px; /* Permet aux logos de conserver leurs dimensions naturelles */
+  height: 90%; /* Ajuste la hauteur à celle du conteneur */
+  margin: 0 15px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.carousel-logo:hover {
+  filter: grayscale(0%);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+@media (max-width: 768px) {
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 70px; /* Ajuste en fonction de la hauteur des logos */
+    background-color: #f9f9f9;
+  }
+  .icon-container img {
+    width: 30px; /* Taille réduite pour les téléphones */
+    height: 30px; /* Taille réduite pour les téléphones */
+    margin: 5px; /* Espacement réduit entre les icônes */
+    padding-top: 10px;
+  }
+
+  .carousel-logo {
+    width: 50px; /* Largeur réduite pour les téléphones */
+    margin: 0 10px; /* Espacement réduit entre les logos */
+  }
+}
+
+
+
+
+/*-------------------------------------------------------------Cards --------------------------------------*/
+
+.wrapper{
+  padding: 10px 10%;
+}
+#card-area{
+  padding: 50px 0;
+}
+/* .box-area{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 40px;
+  margin-top: 40px;
+} */
+.box-area {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  margin-top: 40px;
+}
+
+.box {
+border-radius: 10px;
+position: relative;
+overflow: hidden;
+box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+}
+.box img{
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.5s;
+}
+.overlay {
+width: 100%;
+height: 0;
+background: linear-gradient(transparent, rgba(135, 206, 250, 0.8) 54%);
+border-radius: 10px;
+position: absolute;
+left: 0;
+bottom: 0;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+padding: 0 40px;
+text-align: center;
+font-size: 14px;
+transition: height 0.5s;
+}
+.overlay h3 {
+font-weight: 500;
+margin-bottom: 5px;
+margin-top: 40%;
+font-family: 'Bebas Neue', sans-serif;
+font-size: 30px;
+letter-spacing: 2px;
+}
+.overlay a {
+margin-top: 10px;
+color: #262626;
+text-decoration: none;
+font-size: 14px;
+background: #0066ff;
+border-radius: 10px;   /* 50px*/
+text-align: center;
+padding: 10px 25px;  /*5px 20px*/
+}
+
+/* .overlay a:hover{
+  background-color: #ffffff;
+  color: #0066ff;
+} */
+.box:hover img{
+  transform: scale(1.1);
+}
+.box:hover .overlay{
+  height: 100%;
+}
+
+
+@media (max-width: 1024px) {
+  .box-area {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les écrans moyens */
+  }
+}
+
+@media (max-width: 768px) {
+  .box-area {
+    grid-template-columns: 1fr; /* 1 colonne pour les petits écrans */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------------------------Produits----------------------------------------------------------- */
+
+.titleProduits h1{
+  text-align: center;
+  margin: 3.5% 0px 2% 0px;
+}
+
+
+
+
+
+:root {
+  --font1: 'Heebo', sans-serif;
+  --font2: 'Fira Sans Extra Condensed', sans-serif;
+  --font3: 'Roboto', sans-serif;
+
+  --btnbg: #ffcc00;
+  --btnfontcolor: rgb(61, 61, 61);
+  --btnfontcolorhover: rgb(255, 255, 255);
+  --btnbghover: #ffc116;
+  --btnactivefs: rgb(241, 195, 46);
+
+
+  --label-index: #960796;
+  --danger-index: #5bc257;
+/* PAGINATE */
+  --link-color: #000;
+  --link-color-hover: #fff;
+  --bg-content-color: #ffcc00;
+
+}
+
+.container-fluid {
+  max-width: 1400px;
+
+}
+
+.card {
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+  transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+  border: 0;
+  border-radius: 1rem;
+}
+
+.card-img,
+.card-img-top {
+  border-top-left-radius: calc(1rem - 1px);
+  border-top-right-radius: calc(1rem - 1px);
+}
+
+
+.card h5 {
+  overflow: hidden;
+  height: 55px;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.card h5 a {
+color: black;
+text-decoration: none;
+} 
+
+.card-img-top {
+  width: 100%;
+  min-height: 250px;
+  max-height: 250px;
+  object-fit: contain;
+  padding: 30px;
+}
+
+.card h2 {
+  font-size: 1rem;
+}
+
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+}
+
+/* Centered text */
+.label-top {
+  position: absolute;
+  background-color: var(--label-index);
+  color: #fff;
+  top: 8px;
+  right: 8px;
+  padding: 5px 10px 5px 10px;
+  font-size: .7rem;
+  font-weight: 600;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+.top-right {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 900;
+  background: #8bc34a;
+  line-height: 90px;
+  text-align: center;
+  color: white;
+}
+
+.top-right span {
+  display: inline-block;
+  vertical-align: middle;
+  /* line-height: normal; */
+  /* padding: 0 25px; */
+}
+
+.aff-link {
+  /* text-decoration: overline; */
+  font-weight: 500;
+}
+
+.over-bg {
+  background: rgba(53, 53, 53, 0.85);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(0.0px);
+  -webkit-backdrop-filter: blur(0.0px);
+  border-radius: 10px;
+}
+.bold-btn {
+
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 5px 50px 5px 50px;
+}
+.box .btn {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1025px) {
+  .btn {
+      padding: 5px 40px 5px 40px;
+  }
+}
+@media (max-width: 250px) {
+  .btn {
+      padding: 5px 30px 5px 30px;
+  }
+}
+
+/* START BUTTON */
+.btn-warning {
+  background: #FFA500;
+  color: var(--btnfontcolor);
+  fill: #ffffff;
+  border: none;
+  text-decoration: none;
+  outline: 0;
+  /* box-shadow: -1px 6px 19px rgba(247, 129, 10, 0.25); */
+  border-radius: 100px;
+}
+.btn-warning:hover {
+  background: var(--btnbghover);
+  color: var(--btnfontcolorhover);
+  /* box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35); */
+}
+.btn-check:focus + .btn-warning, .btn-warning:focus {
+  background: var(--btnbghover);
+  color: var(--btnfontcolorhover);
+  /* box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35); */
+}
+.btn-warning:active:focus {
+  box-shadow: 0 0 0 0.25rem var(--btnactivefs);
+}
+.btn-warning:active {
+  background: var(--btnbghover);
+  color: var(--btnfontcolorhover);
+  /* box-shadow: -1px 6px 13px rgba(255, 150, 43, 0.35); */
+}
+
+/* END BUTTON */
+
+.bg-success {
+  font-size: 1rem;
+  background-color: var(--btnbg)!important;
+  color: var(--btnfontcolor)!important;
+}
+.bg-danger {
+  font-size: 1rem;
+}
+
+
+.price-hp {
+  font-size: 1rem;
+  font-weight: 600;
+  color: darkgray;
+}
+
+.amz-hp {
+  font-size: .7rem;
+  font-weight: 600;
+  color: darkgray;
+}
+
+.fa-question-circle:before {
+  /* content: "\f059"; */
+  color: darkgray;
+}
+
+.fa-heart:before {
+  color:crimson;
+}
+.fa-chevron-circle-right:before {
+  color: darkgray;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------------------------------Publicite-------------------------------------------------*/
+
+.publicité{
+  margin-top: 10%;
+  position: relative;
+  width: 100%;
+  height: 680px;
+  
+}
+
+.publicité .textpub{
+  position: absolute;
+  top: 40%;
+  left: 19%;
+  z-index: 220;
+  font-weight: bolder;
+  color: white;
+  font-size: 40px;
+  animation: colorChange 3s linear infinite;
+}
+
+@keyframes colorChange {
+  0% {
+    color: rgb(224, 211, 211);
+  }
+  50% {
+    color: blue;
+  }
+  100% {
+    color: rgb(224, 211, 211);
+  }
+}
+
+
+
+
+.publicité img{
+    width: 100%; /* La largeur de l'image s'ajuste à 100% de son conteneur */
+    height: 620px; /* La hauteur de l'image est fixée à 200px */
+    object-fit: cover; /* Permet de maintenir les proportions de l'image et d'éviter les déformations */
+    
+    
+  
+}
+
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #09f;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 10% auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+/*-----------------------------------------------------------glass-button---------------------------------------*/
+.glass-button  a{
+  display: inline-block;
+  padding: 24px 32px;
+   border: 0;
+   text-decoration: none;
+   border-radius: 10px;
+   background-color: rgba(255,255,255,0.1);
+   border: 2px solid rgb(255, 255, 255);
+   /* backdrop-filter: blur(4px); */
+   color: rgba(255,255,255,0.8);
+   font-size: 18px;
+   letter-spacing: 2px;
+   cursor: pointer;
+   text-transform: uppercase;
+   position: absolute;
+   top: 64%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+
+   
+
+
+
+}
+
+.glass-button:hover {
+  background-color: rgba(255, 255, 255, 0.875);
+
+}
+
+.glass-button a:hover{
+  color: #d4cdcd;
+  border-color: #0066ff;
+}
+
+
+
+
+
+/* Media Queries pour les tailles d'écran */
+@media (max-width: 768px) {
+  .publicité .textpub {
+    font-size: 6.5vw; /* Texte plus petit pour les tablettes */
+    position: absolute;
+    top: 60%;
+    left: 14%;
+  }
+
+  .glass-button a {
+    font-size: 0.1rem;
+    padding: 1em 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .publicité .textpub {
+    font-size: 3vw; /* Texte plus grand pour les mobiles */
+    top: 41%; /* Ajuster la position */
+    left: 14%;
+  }
+
+  .glass-button a {
+    font-size: 0.8rem;
+    padding: 0.8em 1.2em;
+    top: 60%; /* Ajuster la position */
+  }
+}
+
+@media (max-width: 1024px){
+  .publicité .textpub {
+    font-size: 2.5vw; /* Texte plus grand pour les mobiles */
+    top: 43%; /* Ajuster la position */
+    left: 10%;
+  }
+
+  .glass-button a {
+    font-size: 0.8rem;
+    padding: 0.8em 1.2em;
+    top: 60%; /* Ajuster la position */
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .publicité .textpub {
+    font-size: 2vw; /* Texte plus grand pour les mobiles */
+    top: 42%; /* Ajuster la position */
+    left: 18%;
+  }
+  .glass-button a {
+    padding: 24px 25px; /* Augmente légèrement la taille du bouton sur des écrans plus grands */
+    font-size: 20px; /* Augmente la taille du texte */
+    top: 64%; /* Ajuste la position du bouton pour des écrans plus grands */
+  }
+}
+
+

@@ -1,0 +1,11 @@
+.container #title{
+    font-size: 4rem;
+    font-weight:600;
+    color: #dc6300;
+    text-align: center;
+}    
+
+.container .card{
+    /* margin: 4rem; */
+    padding: 40px;
+}

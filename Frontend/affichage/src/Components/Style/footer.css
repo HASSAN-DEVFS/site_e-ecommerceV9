@@ -1,0 +1,219 @@
+.footer{
+    background-color: azure;
+    width: 100%;
+    height: 50%;
+    margin-top: 10%;
+    display: grid;
+    grid-template-columns:  repeat(3 , 1fr);
+    gap: 20px; /* Espacement entre les colonnes */
+}
+
+
+.footer-column img{
+    width: 40%;
+    height: 50%;
+    border-radius: 50%;
+    margin: 15%;
+}
+
+/* .footer-column p{
+    width: 40%;
+    height: 50%;
+    border-radius: 50%;
+    margin: 15%;
+} */
+
+.footer ul li{
+    width: 40%;
+    height: 50%;
+    border-radius: 50%;
+    margin: 5%;
+    list-style: none;
+    
+}
+
+.footer ul{
+    margin-top: 10%;
+}
+
+.footer-column{
+    margin-left: 9%;
+}
+.footer-column1 ul li a{
+    text-decoration: none;
+    color: black;
+}
+.footer-column ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.footer-column ul li{
+    width: 40%;
+    height: 50%;
+    border-radius: 50%;
+    margin: 5%;
+    list-style: none;
+}
+.footer-column2 {
+    margin-top: 13%; /* Réduit l'espacement au-dessus */
+    text-align: center; /* Centrer le texte et le bouton */
+}
+
+.footer-column2 h3 {
+    margin: 0 0 5px 0; /* Pas de marge en haut, espace uniquement en bas */
+    line-height: 2; /* Améliorer l'espacement entre les lignes */
+}
+
+.footer-column2 a {
+    display: inline-block; /* Rend le bouton plus facile à styliser */
+    text-decoration: none;
+    border: 1px solid blue;
+    color: black;
+    border-radius: 20px;
+    padding: 10px 15px; /* Taille du bouton */
+    background-color: azure; /* Ajout d'une couleur de fond pour contraster */
+    transition: all 0.3s ease-in-out; /* Animation au survol */
+}
+
+.footer-column2 a:hover {
+    background-color: blue; /* Couleur de fond au survol */
+    color: white; /* Texte en blanc au survol */
+}
+
+ul li a:hover{
+    color: blue;
+}
+
+hr{
+    width: 100% !important;
+    border: 1px solid blue;
+    margin-top: 0%;
+}
+
+
+
+@media (max-width: 768px) {
+    .footer{
+        grid-template-columns: repeat(2 , 1fr);
+    }
+    .footer ul li {
+        width: auto; /* Ajuste la largeur pour éviter les débordements */
+    }
+    
+}
+
+
+@media (max-width: 480px) {
+    .footer {
+        grid-template-columns: 1fr; /* Une seule colonne */
+        gap: 10px; /* Espacement réduit */
+    }
+
+    .footer-column img {
+        width: 80%; /* Plus petit pour les téléphones */
+        margin: auto; /* Centrer les images */
+    }
+
+    .footer ul {
+        margin-top: 5%; /* Réduit l'espacement vertical */
+    }
+
+    .footer-column2 {
+        margin-top: 5%; /* Réduit l'espace au-dessus */
+    }
+
+    .footer-column2 h3 {
+        font-size: 14px; /* Texte plus petit */
+    }
+
+    .footer-column2 a {
+        padding: 8px 12px; /* Bouton plus petit */
+        margin: 4%;
+    }
+}
+
+
+
+
+/* Conteneur de la liste */
+.liste-copyr {
+    display: flex;
+    justify-content: space-between; /* Espacement égal entre les éléments */
+    flex-wrap: wrap; /* Permet à l'élément de passer à la ligne suivante sur petits écrans */
+    gap: 20px; /* Espacement entre les icônes et les éléments */
+    margin: 0 auto;
+    padding: 20px; /* Pour ajouter un peu de marge interne */
+}
+
+/* Suppression du style de liste */
+.liste-copyr {
+    list-style: none;
+}
+
+/* Taille de l'icône par défaut */
+.icon, .linkedin-icon, .instagram-icon, .github-icon {
+    font-size: 30px; /* Taille d'icône par défaut */
+    color: gray; /* Couleur normale */
+    transition: color 0.3s ease-in-out;
+}
+
+/* Couleur au survol des icônes */
+.icon:hover {
+    color: red; /* Rouge pour l'icône par défaut */
+}
+
+.linkedin-icon:hover {
+    color: #0077B5; /* Bleu de LinkedIn */
+}
+
+.instagram-icon:hover {
+    color: rgb(255, 0, 132); /* Rose d'Instagram */
+}
+
+.github-icon:hover {
+    color: black; /* Noir de GitHub */
+}
+
+/* Media Query pour les écrans de moins de 800px (tablettes et mobiles) */
+@media (max-width: 800px) {
+    .icon, .linkedin-icon, .instagram-icon, .github-icon {
+        font-size: 24px; /* Taille des icônes réduite */
+    }
+
+    .liste-copyr {
+        justify-content: space-between; /* Espacement égal entre le texte et les icônes */
+        gap: 15px; /* Réduire l'écart entre les éléments */
+    }
+
+    /* Centrer le copyright dans une nouvelle ligne */
+    .liste-copyr li {
+        flex: 0 1 auto; /* Les éléments prennent juste la place nécessaire */
+        text-align: center; /* Centrer le texte */
+    }
+
+    /* Séparer le copyright dans une nouvelle ligne et le centrer */
+    .liste-copyr .copyright {
+        width: 100%; /* Le copyright prend toute la largeur */
+        text-align: center; /* Centrer le copyright */
+        margin-top: 20px; /* Espacement du copyright avec les autres éléments */
+    }
+}
+
+/* Media Query pour les écrans de moins de 500px (smartphones) */
+@media (max-width: 500px) {
+    .liste-copyr {
+        padding: 10px; /* Réduire le padding */
+        gap: 5px; /* Réduire l'écart entre les icônes */
+    }
+
+    .icon, .linkedin-icon, .instagram-icon, .github-icon {
+        font-size: 24px; /* Taille encore plus petite sur les très petits écrans */
+    }
+
+    /* Centrer le texte du copyright */
+    .liste-copyr .copyright {
+        text-align: center; /* Centrer le texte */
+        margin-top: 20px;
+    }
+}
