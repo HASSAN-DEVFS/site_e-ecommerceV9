@@ -2,24 +2,25 @@ import { useEffect, useState } from "react";
 import "../Style/Accueill.css";
 import { Link } from "react-router-dom";
 
-const Accueil = ({ brandImages , cards , products , setProducts }) => {
-    
-    const [loading , setLoading] = useState(true);
+
+const Accueil = ({ brandImages, cards, products, setProducts }) => {
+   
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        // Simulation d'un délai pour récupérer les produits (vous pouvez utiliser une API réelle ici)
-    setTimeout(() => {
-        fetch("https://fakestoreapi.com/products?limit=6")
-          .then((response) => response.json())
-          .then((data) => {
-            setProducts((produit) => [...produit, ...data]); // Mettez à jour les produits
-            setLoading(false); // Désactivez le spinner après la mise à jour
-          })
-          .catch((err) => {
-            console.error("Fetc h error:", err);
-            setLoading(false); // Désactivez le spinner même en cas d'erreur
-          });
-        },2000);
-        }, []); // Exécutez une seule fois au montage
+      
+        setTimeout(() => {
+            fetch("https://fakestoreapi.com/products?limit=6")
+                .then((response) => response.json())
+                .then((data) => {
+                    setProducts((produit) => [...produit, ...data]); 
+                    setLoading(false); 
+                })
+                .catch((err) => {
+                    console.error("Fetc h error:", err);
+                    setLoading(false); 
+                });
+        }, 2000);
+    }, [setProducts]); 
     return (
         <>
             <div
@@ -96,18 +97,16 @@ const Accueil = ({ brandImages , cards , products , setProducts }) => {
 
             <div className="carousel">
                 <div className="carousel-track">
-                  
-                {brandImages.map((img, index) => {
-            return (
-              <img
-                key={index} // Ajout de la clé avec l'index
-                src={img}
-                alt={`Brand ${index}`} // Utilisation correcte de l'index ici
-                className="carousel-logo"
-              />
-            );
-          })}
-                
+                    {brandImages.map((img, index) => {
+                        return (
+                            <img
+                                key={index} // Ajout de la clé avec l'index
+                                src={img}
+                                alt={`Brand ${index}`} // Utilisation correcte de l'index ici
+                                className="carousel-logo"
+                            />
+                        );
+                    })}
 
                     {/* <img
                         src="/assets/Branding/nike.png"
@@ -232,39 +231,38 @@ const Accueil = ({ brandImages , cards , products , setProducts }) => {
                 </div>
             </div>
 
-           { /*--------------------------------------------------------------------------------------------------------------------------------*/}
-    <div className="title">
-        <h1 style={{textAlign : "center" , marginTop : "4%"}}>Catégories</h1>
-    </div>
-	<div id="card-area">
-		<div className="wrapper">
-			<div className="box-area">
-                    {cards.map((card , index) => {
-                        return (
-                        <div className="box" key={index}>
-                            <img src={card.img} alt=""/>
-                            <div className="overlay">
-                                <h3>{card.title}</h3>
-                                <p>{card.description}</p>
-                                <Link to={card.link}>Visiter</Link>
-                            </div>
-                         </div>
-                        )
-                       
-                    })}
-                
-			</div>
-		</div>
-	</div>
-    <div className="titleProduits">
-        <h1>Produits</h1>
-    </div>
-    {/*-------------------------------------------------------------------------------*/}
-    
+            {/*--------------------------------------------------------------------------------------------------------------------------------*/}
+            <div className="title">
+                <h1 style={{ textAlign: "center", marginTop: "4%" }}>
+                    Catégories
+                </h1>
+            </div>
+            <div id="card-area">
+                <div className="wrapper">
+                    <div className="box-area">
+                        {cards.map((card, index) => {
+                            return (
+                                <div className="box" key={index}>
+                                    <img src={card.img} alt="" />
+                                    <div className="overlay">
+                                        <h3>{card.title}</h3>
+                                        <p>{card.description}</p>
+                                        <Link to={card.link}>Visiter</Link>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+            <div className="titleProduits">
+                <h1>Produits</h1>
+            </div>
+            {/*-------------------------------------------------------------------------------*/}
 
-  {/*--------------------------------------------------------------------------------------*/ }
+            {/*--------------------------------------------------------------------------------------*/}
 
-  <div className="container-fluid bg-transparent my-4 p-3">
+            <div className="container-fluid bg-transparent my-4 p-3">
     <div className="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
     {loading ? (
         <div className="spinner"></div>
@@ -306,7 +304,7 @@ const Accueil = ({ brandImages , cards , products , setProducts }) => {
                   </a>
                 </h5>
                 <div className="d-grid gap-2 my-4">
-                  <a href="#" className="btn btn-warning bold-btn">add to cart</a>
+                  <Link to="#" className="btn btn-warning bold-btn" >Ajouter au panier</Link>
                 </div>
                 <div className="clearfix mb-1">
                   {/* <span className="float-start">
@@ -328,25 +326,24 @@ const Accueil = ({ brandImages , cards , products , setProducts }) => {
     </div>
       </div>
 
+            <div className="publicité">
+                <img src="./assets/Publicité3.webp" alt="" />
+                <div className="textpub">
+                    <p>
+                        Viora Luxe. propose des soldes exceptionnelles pour ses
+                        clients
+                    </p>
+                </div>
+                <div className="glass-button">
+                    <a href="https://www.vioraluxe.com/">Profitez-en !</a>
+                </div>
+            </div>
 
-      
-
-  <div className="publicité">
-    <img src="./assets/Publicité3.webp" alt=""/>
-    <div className="textpub">
-        <p>Viora Luxe. propose des soldes exceptionnelles pour ses clients</p>
-    </div>
-    <div className="glass-button">
-        <a href="https://www.vioraluxe.com/">Profitez-en !</a>
-    </div>
-  </div>
-
-  {/* <footer>
+            {/* <footer>
     <div className="footer">
         
     </div>
   </footer> */}
-
         </>
     );
 };

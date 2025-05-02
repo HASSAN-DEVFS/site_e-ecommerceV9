@@ -30,7 +30,7 @@ const footer = () => {
             </div>
         </div>
         <hr/>
-        <div className="footer-copyright">
+        <div className=" footer-copyright">
        
     <ul className="liste-copyr">
         <li>VIORA LUXE</li>

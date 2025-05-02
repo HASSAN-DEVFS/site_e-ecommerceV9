@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./Components/Layout/footer";
 import Produits from "./Components/Pages/Produits";
 import Panier from "./Components/Pages/Panier";
-
+import Connexion from "./Components/Pages/Connexion";
 const App = () => {
     const Brande = {
         adidas: "/assets/Branding/adidas.png",
@@ -32,22 +32,22 @@ const App = () => {
         {
             img: "/assets/img1.webp",
             title: "Vêtements Femme",
-            link: "#",
+            link: "/products/vêtementsFemmes",
         },
         {
             img: "/assets/vetemntshomme.webp",
             title: "Vetements Homme",
-            link: "/products/homme",
+            link: "/products/vetementsHommes",
         },
         {
             img: "/assets/chaussures.webp",
             title: "Chaussures",
-            link: "#",
+            link: "/products/chaussures",
         },
         {
             img: "/assets/Electro1.webp",
             title: "Electronique",
-            link: "#",
+            link: "/products/AccessoiresElectronique",
         },
         {
             img: "/assets/Maison_Cuisine.webp",
@@ -96,6 +96,8 @@ const App = () => {
         },
     ]);
 
+
+
     // Conversion de l'objet Brande en tableau d'images
     const brandImages = Object.values(Brande);
     return (
@@ -109,7 +111,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />  */}
                 {/* <Route path="/products" element={<Produits />} /> */}
                 <Route path="/panier" element={<Panier />} />
-                <Route path="/products/:type" element={<Produits />} />
+                <Route path="/products/:category?" element={<Produits />} />
+                <Route path="/login" element={<Connexion/>}/>
             </Routes>
             <Footer />
         </>

@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { ajouterAuPanier } from "../../redux_panier/PanierSlice";
 
 const Produits = () => {
+    const dispatch = useDispatch();
+    // const ajouterAuPanier = useSelector((state) => state.panier.ajouterAuPanier);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const {type} = useParams();
+    const {category} = useParams();
 
     useEffect(() => {
-        if (!type) return; // Vérifie que type est défini avant d'appeler l'API
-    
-        fetch(`http://127.0.0.1:8000/api/products/${type}`)
+       const url = category ? `http://127.0.0.1:8000/api/products/${category}` : `http://127.0.0.1:8000/api/products?limit=25`;
+        fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -27,11 +31,11 @@ const Produits = () => {
                 setError(error);
                 setLoading(false);
             });
-    }, [type]); 
+    }, [category]); 
     
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="spinner"></div>;
     }
 
     if (error) {
@@ -64,7 +68,23 @@ const Produits = () => {
                                         </a>
                                     </h5>
                                     <div className="d-grid gap-2 my-4">
-                                        <a href="#" className="btn btn-warning bold-btn">add to cart</a>
+                                    <button
+    className="btn btn-warning bold-btn"
+    onClick={() =>
+        dispatch(
+            ajouterAuPanier({
+                id: product.id,
+                title: product.title,
+                image_url: product.image_url,
+                description: product.description,
+                price: parseFloat(product.price),
+            })
+        )
+    }
+>
+    Ajouter au panier
+</button>
+
                                     </div>
                                     <div className="clearfix mb-1"></div>
                                 </div>

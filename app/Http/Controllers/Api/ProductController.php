@@ -12,8 +12,8 @@ class ProductController extends Controller
         $products = Product::all();
         return response()->json($products);
     }
-    public function getByType($type) {
-        $products = Product::where("type", $type)->get();
+    public function getByCategories($category) {
+        $products = Product::where("category", $category)->get();
         return response()->json($products);
     }
     

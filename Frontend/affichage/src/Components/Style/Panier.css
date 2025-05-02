@@ -1,11 +1,28 @@
-.container #title{
+/* .container #title{
     font-size: 4rem;
     font-weight:600;
     color: #dc6300;
     text-align: center;
-}    
+}    */
 
-.container .card{
-    /* margin: 4rem; */
-    padding: 40px;
+.container #cardPanier{
+    margin: 4rem; 
+    padding: 40px; 
+    width: 980px;
 }
+
+#cardPanier .card-body{
+    padding: 20px;
+    margin-left: 100px; 
+} 
+
+.panierIcdelete {
+    color: gray;
+    font-size: 1.5rem;
+}
+.panierIcdelete:hover {
+    color: red;
+    transform: scale(1.1);
+    transition: 0.2s;
+  }
+  

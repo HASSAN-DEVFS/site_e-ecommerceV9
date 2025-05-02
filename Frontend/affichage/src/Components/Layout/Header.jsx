@@ -11,9 +11,12 @@ import { useState } from "react";
 // import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { FaShoppingCart } from 'react-icons/fa';
+import {useSelector} from 'react-redux';
 
 import "../Style/Header.css";
 const Header = () => {
+    const NbreArticles = useSelector((state) => state.panier.nbrArticles);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
@@ -37,7 +40,7 @@ const Header = () => {
     <div className="header-content">
       {/* Logo à gauche */}
       <div className="logo">
-        <img src="./assets/Logo.png" alt="Logo" />
+        <img src="/assets/Logo.png" alt="VioraLuxe." />
       </div>
 
       {/* Icônes à droite */}
@@ -47,13 +50,13 @@ const Header = () => {
         <div style={styles.panier}>
               {/* -------------  -----------------    ---------     -----                        */}
         <Link to='/panier'><FaShoppingCart className='icon' style={styles.iconePanier} /></Link>
-        {/* {nbArticles > 0 && ( */}
+        {NbreArticles > 0 && (
           <div style={styles.badge}>
-             <span style={styles.badgeTexte}>0</span> {/* {nbArticles} */}
+             <span style={styles.badgeTexte}>{NbreArticles}</span>
           </div>
-        {/* )} */}
+      )} 
       </div>
-        <MdOutlineDarkMode className="icon"  />
+        {/* <MdOutlineDarkMode className="icon-dark"/> */}
       </div>
     </div>
   </div>
@@ -80,19 +83,19 @@ const Header = () => {
                             </li>
 
                             <li className="menu-item mega-menu">
-                                <Link to="/products">categories +</Link>
+                                <Link to="/products/">categories +</Link>
                                 <div className="mega-menu-wrapper slideInUp">
                                     <div className="mega-menu-col">
                                         <h5>Mode et vêtements</h5>
                                         <ul className="mega-sub-menu">
                                             <li>
-                                                <Link to="/products/homme">
-                                                Hommes
+                                                <Link to="/products/vetementsHommes">
+                                                vêtements Hommes
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/products/femme">
-                                                femmes
+                                                <Link to="/products/vêtementsFemmes">
+                                                vêtements Femmes
                                                 </Link>
                                             </li>
                                             <li>
@@ -101,12 +104,12 @@ const Header = () => {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="chaussures">
+                                                <Link to="/products/chaussures">
                                                 chaussures
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href="#">
+                                                <Link to="/products/AccessoiresMode">
                                                 accessoires de mode
                                                 </Link>
                                             </li>
@@ -116,24 +119,24 @@ const Header = () => {
                                         <h5>Électronique</h5>
                                         <ul className="mega-sub-menu">
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/telephonesAccessoires">
                                                 Smartphones
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/ordinateursAccessoires">
                                                 ordinateurs
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/televiseursAccessoires">
                                                 Téléviseurs 4K
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/AccessoiresElectronique">
                                                 accessoires électroniques
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
                                                 <a href="#">
@@ -146,29 +149,29 @@ const Header = () => {
                                         <h5>Maison et Cuisine</h5>
                                         <ul className="mega-sub-menu">
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Meubles">
                                                 Meubles (Tables, Canapés)
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="/products/Électroménager">
                                                 Électroménager
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="/products/Linge de maison">
                                                 Linge de maison
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Décoration-intérieure">
                                                 Décoration intérieure
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Ustenciles-cuisine">
                                                 Ustensiles de cuisine
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -176,29 +179,29 @@ const Header = () => {
                                         <h5>Beauté et Santé</h5>
                                         <ul className="mega-sub-menu">
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Maquillage">
                                                 Maquillage
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Parfums">
                                                 Parfums
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Soins capillaires">
                                                 Soins capillaires
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Accessoires de beauté">
                                                 Accessoires de beauté
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <Link to="/products/Produits-bien-etre">
                                                 Produits de bien-être
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -213,13 +216,13 @@ const Header = () => {
                                             <a href="#">Support technique</a>
                                         </li>
                                         <li className="menu-item">
-                                            <a href="#">Service 2</a>
+                                            <a href="#">FAQ</a>
                                         </li>
                                         <li className="menu-item">
-                                            <a href="#">Service 3</a>
+                                            <a href="#">Contact</a>
                                         </li>
                                         <li className="menu-item">
-                                            <a href="#">Service 4</a>
+                                            <a href="#">Conditions /termes</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -228,7 +231,7 @@ const Header = () => {
                                 <a href="#">Blog</a>
                             </li>
                             <li className="menu-item">
-                                <a href="#">Connexion</a>
+                                <Link to="/login">Connexion</Link>
                             </li>
                         </ul>
                         <a
