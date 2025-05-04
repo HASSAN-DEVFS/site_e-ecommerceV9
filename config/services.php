@@ -30,5 +30,10 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'google' => [
+  'client_id'     => env('593028440137-o2onm20ad0ujchn9mrd35il7us3k996j.apps.googleusercontent.com'),
+  'client_secret' => env('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'),
+  'redirect'      => env('http://localhost:5173/oauth2/acceuil'),
+],
 
 ];
