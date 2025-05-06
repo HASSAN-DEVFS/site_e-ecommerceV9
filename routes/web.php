@@ -14,11 +14,13 @@ Route::get('/', function () {
 //     return response()->json(['message' => 'Hello world']);
 // })->middleware('cors');
 
-
+Route::middleware(['web', 'api'])->group(function () {
+    Route::post('/google-login', [AuthController::class, 'googleLogin']);
+});
 
 
 // redirection initiale vers Google
-Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle']);
+// Route::get('/auth/google/redirect', [AuthController::class, 'redirectToGoogle']);
 
-// callback OAuth2 (méthode GET)
-Route::get('/auth/google/callback',  [AuthController::class, 'handleGoogleCallback']);
+// // callback OAuth2 (méthode GET)
+// Route::get('/auth/google/callback',  [AuthController::class, 'handleGoogleCallback']);

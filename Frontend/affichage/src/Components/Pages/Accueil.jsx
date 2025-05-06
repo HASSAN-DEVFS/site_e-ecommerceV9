@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import "../Style/Accueill.css";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ajouterAuPanier } from "../../redux_panier/PanierSlice";
 
 
 const Accueil = ({ brandImages, cards, products, setProducts }) => {
    
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
     useEffect(() => {
       
         setTimeout(() => {
-            fetch("https://fakestoreapi.com/products?limit=6")
+            fetch("http://127.0.0.1:8000/api/produits-limites")
                 .then((response) => response.json())
                 .then((data) => {
                     setProducts((produit) => [...produit, ...data]); 
                     setLoading(false); 
                 })
                 .catch((err) => {
-                    console.error("Fetc h error:", err);
+                    console.error("Fetch error:", err);
                     setLoading(false); 
                 });
         }, 2000);
@@ -272,7 +275,7 @@ const Accueil = ({ brandImages, cards, products, setProducts }) => {
             <div className="card h-100 shadow-sm">
               <a target="_blank" rel="noopener noreferrer" href={product.link}>
                 <img
-                  src={product.image}
+                  src={product.image_url}
                   className="card-img-top"
                   alt={product.title}
                 />
@@ -304,7 +307,13 @@ const Accueil = ({ brandImages, cards, products, setProducts }) => {
                   </a>
                 </h5>
                 <div className="d-grid gap-2 my-4">
-                  <Link to="#" className="btn btn-warning bold-btn" >Ajouter au panier</Link>
+                  <Link to="#" className="btn btn-warning bold-btn" onClick={() => dispatch(ajouterAuPanier({
+                    id: product.id,
+                    title: product.title,
+                    image_url: product.image_url,
+                    description: product.description,
+                    price: parseFloat(product.price),
+                  }))} >Ajouter au panier</Link>
                 </div>
                 <div className="clearfix mb-1">
                   {/* <span className="float-start">

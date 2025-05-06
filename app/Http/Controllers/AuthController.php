@@ -30,6 +30,10 @@ class AuthController extends Controller
     // login via Google
     public function googleLogin(Request $request)
     {
+    
+    // dd($request->all());
+    
+
         $token = $request->input('token');
         $googleUser = Socialite::driver('google')->stateless()->userFromToken($token);
 
@@ -42,7 +46,7 @@ class AuthController extends Controller
                 'google_id'=> $googleUser->getId(),
                 'avatar'    => $googleUser->getAvatar(),
                 // Vous pouvez générer un mot de passe aléatoire si votre table l'exige
-                'password'  => bcrypt(str_random(16)),
+                'password'  => bcrypt(\Illuminate\Support\Str::random(16)),
             ]
         );
 

@@ -26,6 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{category}', [ProductController::class , "getByCategories"]);
+Route::get('/produits-limites', [ProductController::class, 'produitsLimites']);
 
 // Google OAuth
 Route::post('/google-login', [AuthController::class, 'googleLogin']);
