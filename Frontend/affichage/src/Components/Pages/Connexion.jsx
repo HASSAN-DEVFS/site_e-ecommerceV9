@@ -337,6 +337,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL; // Vite uniquement
   const logoUrls = {
     facebook: "https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png",
     google: "https://developers.google.com/identity/images/g-logo.png",
@@ -372,6 +373,36 @@ function Login() {
       setMessage('Erreur lors de la connexion');
     }
   };
+
+  const handleProviderClick = (provider) => {
+    if (provider === 'google') {
+      googleLogin();
+    } else if (provider === 'twitter') {
+      handleTwitterLogin();
+    } else {
+      console.log(`${provider} login non encore implémenté`);
+    }
+  };
+
+  
+
+  
+    
+  const handleTwitterLogin = () => {
+    if (!BACKEND_URL) {
+      console.error('VITE_BACKEND_URL non défini');
+      return;
+    }
+    window.location.href = `${BACKEND_URL}/auth/redirect/twitter`
+;
+
+  };
+  
+
+
+
+
+
 
   // Handle Google login using access_token
   const googleLogin = useGoogleLogin({
@@ -442,7 +473,8 @@ function Login() {
     key={provider}
     type="button"
     className="btn btn-outline-secondary flex-fill"
-    onClick={() => provider === 'google' && googleLogin()}
+    onClick={() => handleProviderClick(provider)
+    }
   >
     <img
       src={logoUrls[provider]}

@@ -35,5 +35,10 @@ return [
   'client_secret' => env('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'),
   'redirect'      => env('http://localhost:5173/oauth2/acceuil'),
 ],
+'twitter' => [
+    'client_id'     => env('dlFGbUV4dVRCX01zelIzVFlfVGw6MTpjaQ'),
+    'client_secret' => env('****TDVSH7'),
+    'redirect'      => env('https://localhost:8000/auth/callback/twitter'),
+],
 
 ];

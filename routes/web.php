@@ -24,3 +24,9 @@ Route::middleware(['web', 'api'])->group(function () {
 
 // // callback OAuth2 (méthode GET)
 // Route::get('/auth/google/callback',  [AuthController::class, 'handleGoogleCallback']);
+// 1) Redirection vers Twitter pour l’authentification
+Route::get('/auth/redirect/twitter', [AuthController::class, 'redirectToTwitter']);
+
+
+// 2) Callback : Twitter renvoie l’utilisateur ici
+Route::get('/auth/callback/twitter', [AuthController::class, 'handleTwitterCallback']);
