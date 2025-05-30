@@ -40,5 +40,9 @@ return [
     'client_secret' => env('****TDVSH7'),
     'redirect'      => env('https://localhost:8000/auth/callback/twitter'),
 ],
+'stripe' => [
+    'secret' => env('STRIPE_SECRET'),
+],
+
 
 ];

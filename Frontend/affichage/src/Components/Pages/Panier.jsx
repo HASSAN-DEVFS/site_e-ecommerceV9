@@ -88,15 +88,42 @@
 
 
 import { useSelector } from "react-redux";
-
-import Header from "../Layout/Header";
+import { loadStripe } from "@stripe/stripe-js";
+import Toast from "../Layout/Toast";
+import { useLocation } from "react-router-dom";
+// import Header from "../Layout/Header";
 import "../Style/Panier.css";
+// import "../Style/index.css";
+
 import { AiFillDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { supprimerDuPanier } from "../../redux_panier/PanierSlice";
+import { use, useEffect, useState } from "react";
+
 const Panier = () => {
     const dispatch = useDispatch();
+
+
+    const location = useLocation();
+    const [showToast, setShowToast] = useState(false);
+  
+    useEffect(() => {
+        const query = new URLSearchParams(location.search);
+        if (query.get("paid") === "1") {
+          setShowToast(true);
+          setTimeout(() => setShowToast(false), 3000); // disparaît après 3s
+          window.history.replaceState({}, document.title, "/panier");
+        }
+      }, [location]);
+
+
+
+
     const panier = useSelector((state) => state.panier.panier);
+    // useEffect(() => {
+    //     localStorage.setItem("panier", JSON.stringify(panier));
+
+    // },[panier])
     // console.log(panier);
     const totalprix = useSelector((state) => state.panier.total);
     // Regrouper les articles
@@ -109,13 +136,43 @@ const Panier = () => {
         }
         return acc;
     }, []);
+ 
+
+
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY); // clé publique Stripe
+
+    const handleCheckout = async () => {
+      const stripe = await stripePromise;
+    
+      const response = await fetch("http://localhost:8000/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ total: totalprix + 20 }), // Total + livraison
+      });
+    
+      const session = await response.json();
+    
+     await stripe.redirectToCheckout({ sessionId: session.id });
+     
+      };
+    
+    
+
+
+
+
 
     return (
-        <div className="w-90 px-4 py-5" style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" , marginLeft : "20px" }}>
+        <div className="pannier-container py-5" style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" , marginLeft : "20px" }}>
+            
         <h1 className="mb-5 text-center fw-bold">Mon Panier</h1>
+       
+    
         <div className="row mt-4">
             {/* Colonne gauche : articles */}
-            <div className="col-lg-8 mt-4">
+            <div className="col-12 col-lg-8 mt-4">
                 {articlesRegroupés.length === 0 ? (
                     <p>Le panier est vide.</p>
                 ) : (
@@ -186,13 +243,22 @@ const Panier = () => {
                             </span>
                         </div>
                     </div>
-                    <button className="btn btn-primary btn-lg w-100 mt-3" style={{ borderRadius: "10px" }}>
+                    <button className="btn btn-primary btn-lg w-100 mt-3" style={{ borderRadius: "10px" }}  onClick={handleCheckout}>
                         Payer maintenant
                     </button>
                 </div>
             </div>
         </div>
+         {/* Toast */}
+         <Toast className="fixed top-0 left-1/2 transform -translate-x-1/2 z-50 p-4 bg-green-500 text-white rounded-lg shadow-md"
+        message="Paiement réussi ! Merci pour votre commande."
+        show={showToast}
+        onClose={() => setShowToast(false)}
+      />
+           
+  
     </div>
+    
     );
 };
 

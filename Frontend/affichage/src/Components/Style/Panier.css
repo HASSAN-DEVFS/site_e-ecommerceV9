@@ -1,3 +1,5 @@
+
+
 /* .container #title{
     font-size: 4rem;
     font-weight:600;
@@ -8,17 +10,18 @@
 .container #cardPanier{
     margin: 4rem; 
     padding: 40px; 
-    width: 980px;
+    width: 100%;
 }
 
 #cardPanier .card-body{
-    padding: 20px;
-    margin-left: 100px; 
-} 
+    margin-left: 0; /* ✅ Plus de décalage vers la droite */
+    padding: 1rem;   /* ✅ Padding intérieur plus doux */
+}
 
 .panierIcdelete {
     color: gray;
     font-size: 1.5rem;
+    cursor: pointer;
 }
 .panierIcdelete:hover {
     color: red;
@@ -26,3 +29,22 @@
     transition: 0.2s;
   }
   
+
+  .pannier-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+    .pannier-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .pannier-container {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}

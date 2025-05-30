@@ -13,6 +13,7 @@ const PanierSlice = createSlice({
     ajouterAuPanier: (state, action) => {
       const article = action.payload;
       state.panier.push(article); // Ajoute l'article au panier
+
       state.nbrArticles += 1;     // Augmente le nombre total d'articles
       state.total += article.price; // Ajoute le prix au total
     },

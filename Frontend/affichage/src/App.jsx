@@ -6,6 +6,8 @@ import Footer from "./Components/Layout/footer";
 import Produits from "./Components/Pages/Produits";
 import Panier from "./Components/Pages/Panier";
 import Connexion from "./Components/Pages/Connexion";
+// import './index.css'; // ou app.css selon ton nom
+
 const App = () => {
     const Brande = {
         adidas: "/assets/Branding/adidas.png",
