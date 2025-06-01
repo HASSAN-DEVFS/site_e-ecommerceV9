@@ -1,0 +1,2 @@
+cd Frontend/affichage
+npm install react-toastify

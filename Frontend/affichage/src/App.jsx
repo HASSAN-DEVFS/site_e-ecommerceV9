@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Header from "./Components/Layout/Header";
 import Accueil from "./Components/Pages/Accueil";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./Components/Layout/footer";
 import Produits from "./Components/Pages/Produits";
 import Panier from "./Components/Pages/Panier";
 import Connexion from "./Components/Pages/Connexion";
-// import './index.css'; // ou app.css selon ton nom
+import { useAuth } from './context/AuthContext';
+import Profile from "./Components/Pages/Profile";
+import AuthDebug from "./Components/Pages/AuthDebug";
+import ApiTest from "./Components/Pages/ApiTest";
 
 const App = () => {
     const Brande = {
@@ -64,6 +67,7 @@ const App = () => {
     ];
 
     const [products, setProducts] = useState([]);
+        const { user } = useAuth();
 
 
 
@@ -73,15 +77,13 @@ const App = () => {
         <>
             <Header />
             <Routes>
-                <Route path="/" element={<Accueil brandImages={brandImages} cards={cards} products={products} setProducts={setProducts}/>
-                    }
-                />
-                {/* <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />  */}
-                {/* <Route path="/products" element={<Produits />} /> */}
+                <Route path="/" element={<Accueil brandImages={brandImages} cards={cards} products={products} setProducts={setProducts}/>} />
                 <Route path="/panier" element={<Panier />} />
                 <Route path="/products/:category?" element={<Produits />} />
-                <Route path="/login" element={<Connexion/>}/>
+                 <Route path="/login" element={user ? <Navigate to="/profile" /> : <Connexion/>} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/auth-debug" element={<AuthDebug />} />
+                <Route path="/api-test" element={<ApiTest />} />
             </Routes>
             <Footer />
         </>
@@ -89,3 +91,8 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+

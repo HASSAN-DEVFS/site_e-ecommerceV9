@@ -514,3 +514,133 @@ font-size: 40px;
     transform: translateX(-50%);
   }
 }
+
+/* Styles pour le menu déroulant du profil avec effet de survol bleu */
+.profile-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.profile-dropdown-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.profile-name {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.profile-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-menu-item {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.profile-menu-item:last-child {
+  border-bottom: none;
+}
+
+.profile-menu-link {
+  display: block;
+  padding: 10px 15px;
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+/* Effet de survol bleu */
+.profile-menu-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Styles responsives */
+@media (max-width: 768px) {
+  .profile-dropdown {
+    width: 180px;
+    top: 40px;
+  }
+  
+  .profile-menu-link {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-dropdown {
+    width: 150px;
+    right: -10px;
+  }
+  
+  .online-indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Styles pour l'avatar et son conteneur */
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.avatar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Ajouter une petite marge pour l'indicateur */
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  /* Assurez-vous que l'indicateur est bien positionné par rapport au placeholder */
+}
+
+/* Effet de survol bleu pour les liens du menu déroulant */
+.hover-blue:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}

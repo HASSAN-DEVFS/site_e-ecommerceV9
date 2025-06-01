@@ -1,40 +1,80 @@
-// import PersonIcon from '@mui/icons-material/Person';
-// import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-// import ContrastIcon from '@mui/icons-material/Contrast';
-// import { FiMenu, FiX } from "react-icons/fi";
-// import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import {Link} from 'react-router-dom';
-
-import { useState } from "react";
-// import PersonIcon from "@mui/icons-material/Person";
-// import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import {Link, useNavigate} from 'react-router-dom';
+import { useState, useRef, useEffect } from "react";
 import { MdOutlineDarkMode } from "react-icons/md";
-import { FaShoppingCart } from 'react-icons/fa';
-import {useSelector} from 'react-redux';
+import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
+import {useSelector, useDispatch} from 'react-redux';
+import { useAuth } from '../../context/AuthContext';
 
 import "../Style/Header.css";
 const Header = () => {
     const NbreArticles = useSelector((state) => state.panier.nbrArticles);
-
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    
+    // Ajouter un log pour déboguer
+    console.log("User dans Header:", user);
+    console.log("Avatar URL:", user?.avatar);
+    
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+    const profileMenuRef = useRef(null);
+    const [hoveredItem, setHoveredItem] = useState(null);
+    
     const toggleMenu = () => {
         setIsMenuOpen((prev) => !prev);
     };
-    //   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    
+    const toggleProfileMenu = () => {
+        setIsProfileMenuOpen(!isProfileMenuOpen);
+    };
+    
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+                setIsProfileMenuOpen(false);
+            }
+        }
+        
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [profileMenuRef]);
+    
+    // Fonction de déconnexion améliorée
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        try {
+            // Utiliser la fonction de déconnexion du contexte
+            await logout();
+            
+            // Réinitialiser le panier si nécessaire
+            // Si vous avez une action pour vider le panier, vous pouvez l'appeler ici
+            // dispatch(viderPanier());
+            
+            // Fermer le menu mobile si ouvert
+            setIsMenuOpen(false);
+            
+            // Rediriger vers la page d'accueil
+            navigate('/');
+        } catch (error) {
+            console.error('Erreur lors de la déconnexion:', error);
+        }
+    };
 
-    //   const toggleMobileMenu = () => {
-    //     setMobileMenuOpen(!isMobileMenuOpen);
-    //   };
+    // Fonction pour gérer le survol
+    const handleMouseEnter = (itemId) => {
+        setHoveredItem(itemId);
+    };
+    
+    const handleMouseLeave = () => {
+        setHoveredItem(null);
+    };
 
-    //   const [menuVisible, setMenuVisible] = useState(false);
-
-    // const toggleMenu = () => {
-    //   setMenuVisible(!menuVisible);
-    // };
     return (
         <>
-
 <div className="container">
     {/* Conteneur principal pour aligner les éléments */}
     <div className="header-content">
@@ -45,18 +85,207 @@ const Header = () => {
 
       {/* Icônes à droite */}
       <div className="icon-container">
-        {/* <PersonIcon className="icon" />
-        <PersonAddAltIcon className="icon" /> */}
+        {/* Icône du panier - maintenant à gauche */}
         <div style={styles.panier}>
-              {/* -------------  -----------------    ---------     -----                        */}
-        <Link to='/panier'><FaShoppingCart className='icon' style={styles.iconePanier} /></Link>
-        {NbreArticles > 0 && (
-          <div style={styles.badge}>
-             <span style={styles.badgeTexte}>{NbreArticles}</span>
+          <Link to='/panier'><FaShoppingCart className='icon' style={styles.iconePanier} /></Link>
+          {NbreArticles > 0 && (
+            <div style={styles.badge}>
+              <span style={styles.badgeTexte}>{NbreArticles}</span>
+            </div>
+          )} 
+        </div>
+        
+        {/* Avatar de profil utilisateur avec menu déroulant */}
+        {user && (
+          <div className="avatar-wrapper" ref={profileMenuRef}>
+            <div 
+              onClick={toggleProfileMenu} 
+              className="avatar-clickable"
+            >
+              {user.avatar ? (
+                <div style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <img 
+                    src={user.avatar} 
+                    alt="Avatar" 
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '2px solid #fff',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    }}
+                    onError={(e) => {
+                      console.error("Erreur de chargement de l'avatar:", e);
+                      e.target.onerror = null;
+                      e.target.style.display = 'none';
+                      e.target.parentNode.innerHTML = `
+                        <div style="
+                          width: 32px;
+                          height: 32px;
+                          border-radius: 50%;
+                          background-color: #007bff;
+                          color: white;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          font-size: 16px;
+                          font-weight: bold;
+                          position: relative;
+                        ">${user.name ? user.name.charAt(0).toUpperCase() : '?'}</div>
+                      `;
+                    }}
+                  />
+                  {/* Indicateur en ligne ajusté */}
+                  <div style={{
+                    position: 'absolute',
+                    width: '8px',
+                    height: '8px',
+                    backgroundColor: '#4CAF50',
+                    borderRadius: '50%',
+                    border: '1px solid white',
+                    bottom: '2px',
+                    right: '2px'
+                  }}></div>
+                </div>
+              ) : (
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  position: 'relative'
+                }}>
+                  {user.name ? user.name.charAt(0).toUpperCase() : '?'}
+                  {/* Indicateur en ligne ajusté */}
+                  <div style={{
+                    position: 'absolute',
+                    width: '8px',
+                    height: '8px',
+                    backgroundColor: '#4CAF50',
+                    borderRadius: '50%',
+                    border: '1px solid white',
+                    bottom: '2px',
+                    right: '2px'
+                  }}></div>
+                </div>
+              )}
+            </div>
+            
+            {/* Menu déroulant du profil avec effet de survol bleu */}
+            {isProfileMenuOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '45px',
+                right: '0',
+                width: '200px',
+                backgroundColor: 'white',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                zIndex: 1000,
+                overflow: 'hidden'
+              }}>
+                {/* En-tête du menu avec le nom d'utilisateur */}
+                <div style={{
+                  padding: '10px 15px',
+                  borderBottom: '1px solid #eee',
+                  textAlign: 'center'
+                }}>
+                  <span style={{
+                    fontWeight: 'bold',
+                    fontSize: '14px',
+                    color: '#333'
+                  }}>{user.name}</span>
+                </div>
+                
+                {/* Liste des options de menu avec effet de survol bleu */}
+                <ul style={{
+                  listStyle: 'none',
+                  padding: '0',
+                  margin: '0'
+                }}>
+                  <li style={{
+                    padding: '0',
+                    margin: '0',
+                    borderBottom: '1px solid #f5f5f5'
+                  }}>
+                    <Link 
+                      to="/profile" 
+                      style={{
+                        display: 'block',
+                        padding: '10px 15px',
+                        color: hoveredItem === 'profile' ? 'white' : '#555',
+                        backgroundColor: hoveredItem === 'profile' ? '#007bff' : 'transparent',
+                        textDecoration: 'none',
+                        fontSize: '14px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={() => handleMouseEnter('profile')}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li style={{
+                    padding: '0',
+                    margin: '0',
+                    borderBottom: '1px solid #f5f5f5'
+                  }}>
+                    <Link 
+                      to="/settings" 
+                      style={{
+                        display: 'block',
+                        padding: '10px 15px',
+                        color: hoveredItem === 'settings' ? 'white' : '#555',
+                        backgroundColor: hoveredItem === 'settings' ? '#007bff' : 'transparent',
+                        textDecoration: 'none',
+                        fontSize: '14px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={() => handleMouseEnter('settings')}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Settings
+                    </Link>
+                  </li>
+                  <li style={{
+                    padding: '0',
+                    margin: '0'
+                  }}>
+                    <a 
+                      href="#" 
+                      onClick={handleLogout} 
+                      style={{
+                        display: 'block',
+                        padding: '10px 15px',
+                        color: hoveredItem === 'logout' ? 'white' : '#555',
+                        backgroundColor: hoveredItem === 'logout' ? '#007bff' : 'transparent',
+                        textDecoration: 'none',
+                        fontSize: '14px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={() => handleMouseEnter('logout')}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      Sign Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
-      )} 
-      </div>
-        {/* <MdOutlineDarkMode className="icon-dark"/> */}
+        )}
       </div>
     </div>
   </div>
@@ -231,8 +460,17 @@ const Header = () => {
                                 <a href="#">Blog</a>
                             </li>
                             <li className="menu-item">
-                                <Link to="/login">Connexion</Link>
+                                {user ? (
+                                    <Link to="/profile">Mon Profil</Link>
+                                ) : (
+                                    <Link to="/login">Connexion</Link>
+                                )}
                             </li>
+                            {user && (
+                                <li className="menu-item">
+                                    <a href="#" onClick={handleLogout}>Déconnexion</a>
+                                </li>
+                            )}
                         </ul>
                         <a
                             href="#"
@@ -410,8 +648,17 @@ const Header = () => {
                                 <a href="#">Blog</a>
                             </li>
                             <li className="menu-item">
-                                <Link  to="/Connexion">Connexion</Link>
+                                {user ? (
+                                    <Link to="/profile">Mon Profil</Link>
+                                ) : (
+                                    <Link to="/login">Connexion</Link>
+                                )}
                             </li>
+                            {user && (
+                                <li className="menu-item">
+                                    <a href="#" onClick={handleLogout}>Déconnexion</a>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>
@@ -447,9 +694,47 @@ const styles = {
       alignItems: "center",
       fontSize: "25px",
       color: "#333",
+      marginRight: "20px", // Ajouter une marge à droite pour séparer du logo
     },
     iconePanier: {
       marginRight: "10px",
+    },
+    iconeProfile: {
+      fontSize: "25px",
+      color: "#333",
+      marginRight: "15px",
+    },
+    iconWrapper: {
+      display: "flex",
+      alignItems: "center",
+      // Pas de marge à droite nécessaire car c'est le dernier élément
+    },
+    avatar: {
+      width: "32px",
+      height: "32px",
+      borderRadius: "50%",
+      objectFit: "cover",
+      border: "2px solid #fff",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    },
+    avatarContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    avatarPlaceholder: {
+      width: "32px",
+      height: "32px",
+      borderRadius: "50%",
+      backgroundColor: "#007bff",
+      color: "white",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "16px",
+      fontWeight: "bold",
+      border: "2px solid #fff",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
     },
     badge: {
       position: "absolute",
@@ -469,8 +754,68 @@ const styles = {
     badgeTexte: {
       position: "relative",
       top: "-0.5px",
-    //   padding : "4px"
+    },
+    loginText: {
+      fontSize: "16px",
+      fontWeight: "500",
+      color: "#333",
+      textDecoration: "none",
+      marginRight: "15px",
+    },
+    avatarClickable: {
+      cursor: 'pointer',
+      position: 'relative',
+    },
+    onlineIndicator: {
+      position: 'absolute',
+      width: '10px',
+      height: '10px',
+      backgroundColor: '#4CAF50',
+      borderRadius: '50%',
+      border: '2px solid white',
+      bottom: '0',
+      right: '0',
+    },
+    profileDropdown: {
+      position: 'absolute',
+      top: '45px',
+      right: '0',
+      width: '200px',
+      backgroundColor: 'white',
+      borderRadius: '8px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+      zIndex: 1000,
+      overflow: 'hidden',
+    },
+    profileDropdownHeader: {
+      padding: '15px',
+      borderBottom: '1px solid #eee',
+      textAlign: 'center',
+    },
+    profileName: {
+      fontWeight: 'bold',
+      fontSize: '14px',
+      color: '#333',
+    },
+    profileMenu: {
+      listStyle: 'none',
+      padding: '0',
+      margin: '0',
+    },
+    profileMenuItem: {
+      padding: '0',
+      margin: '0',
+      transition: 'background-color 0.2s',
+    },
+    profileMenuLink: {
+      display: 'block',
+      padding: '12px 15px',
+      color: '#555',
+      textDecoration: 'none',
+      fontSize: '14px',
+      transition: 'background-color 0.2s',
+      ':hover': {
+        backgroundColor: '#f5f5f5',
+      }
     },
   };
-  
-  

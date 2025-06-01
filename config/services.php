@@ -31,18 +31,19 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'google' => [
-  'client_id'     => env('593028440137-o2onm20ad0ujchn9mrd35il7us3k996j.apps.googleusercontent.com'),
-  'client_secret' => env('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'),
-  'redirect'      => env('http://localhost:5173/oauth2/acceuil'),
-],
-'twitter' => [
-    'client_id'     => env('dlFGbUV4dVRCX01zelIzVFlfVGw6MTpjaQ'),
-    'client_secret' => env('****TDVSH7'),
-    'redirect'      => env('https://localhost:8000/auth/callback/twitter'),
-],
-'stripe' => [
-    'secret' => env('STRIPE_SECRET'),
-],
+        'client_id' => env('GOOGLE_CLIENT_ID', '593028440137-o2onm20ad0ujchn9mrd35il7us3k996j.apps.googleusercontent.com'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET', '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'),
+        'redirect' => env('GOOGLE_REDIRECT_URI', 'http://localhost:5173/oauth2/callback'),
+    ],
+    'twitter' => [
+        'client_id'     => env('dlFGbUV4dVRCX01zelIzVFlfVGw6MTpjaQ'),
+        'client_secret' => env('****TDVSH7'),
+        'redirect'      => env('https://localhost:8000/auth/callback/twitter'),
+    ],
+    'stripe' => [
+        'secret' => env('STRIPE_SECRET'),
+    ],
 
 
 ];
+
