@@ -26,11 +26,11 @@ const Profile = () => {
   });
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  const [favoris, setFavoris] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
-  const [loadingWishlist, setLoadingWishlist] = useState(false);
+  const [loadingFavoris, setLoadingFavoris] = useState(false);
   const [orderError, setOrderError] = useState(null);
-  const [wishlistError, setWishlistError] = useState(null);
+  const [favorisError, setFavorisError] = useState(null);
   
   // Fonction pour charger les commandes de l'utilisateur
   const fetchUserOrders = async () => {
@@ -55,26 +55,26 @@ const Profile = () => {
     }
   };
   
-  // Fonction pour charger la liste de souhaits de l'utilisateur
-  const fetchUserWishlist = async () => {
+  // Fonction pour charger les favoris de l'utilisateur
+  const fetchUserFavoris = async () => {
     if (!token) return;
     
-    setLoadingWishlist(true);
-    setWishlistError(null);
+    setLoadingFavoris(true);
+    setFavorisError(null);
     
     try {
-      const response = await axios.get('http://localhost:8000/api/user/wishlist', {
+      const response = await axios.get('http://localhost:8000/api/user/favoris', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       
-      setWishlist(response.data.wishlist);
+      setFavoris(response.data.favoris);
     } catch (error) {
-      console.error('Erreur lors du chargement de la liste de souhaits:', error);
-      setWishlistError(error.response?.data?.message || error.message || 'Erreur lors du chargement de la liste de souhaits');
+      console.error('Erreur lors du chargement des favoris:', error);
+      setFavorisError(error.response?.data?.message || error.message || 'Erreur lors du chargement des favoris');
     } finally {
-      setLoadingWishlist(false);
+      setLoadingFavoris(false);
     }
   };
   
@@ -82,7 +82,7 @@ const Profile = () => {
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchUserOrders();
-      fetchUserWishlist();
+      fetchUserFavoris();
     }
   }, [isAuthenticated, token]);
   
@@ -115,19 +115,19 @@ const Profile = () => {
     alert(`${product.name} a été ajouté à votre panier.`);
   };
   
-  // Fonction pour supprimer un produit de la liste de souhaits
-  const handleRemoveFromWishlist = async (productId) => {
+  // Fonction pour supprimer un produit des favoris
+  const handleRemoveFromFavoris = async (productId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/user/wishlist/remove/${productId}`, {
+      await axios.delete(`http://localhost:8000/api/user/favoris/remove/${productId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
       
-      // Mettre à jour la liste de souhaits
-      setWishlist(wishlist.filter(item => item.id !== productId));
+      // Mettre à jour la liste des favoris
+      setFavoris(favoris.filter(item => item.id !== productId));
     } catch (error) {
-      console.error('Erreur lors de la suppression du produit de la liste de souhaits:', error);
+      console.error('Erreur lors de la suppression du produit des favoris:', error);
       alert('Erreur lors de la suppression du produit. Veuillez réessayer plus tard.');
     }
   };
@@ -299,10 +299,10 @@ const Profile = () => {
             <FaShoppingBag /> Mes commandes
           </li>
           <li 
-            className={activeTab === 'wishlist' ? 'active' : ''} 
-            onClick={() => setActiveTab('wishlist')}
+            className={activeTab === 'favoris' ? 'active' : ''} 
+            onClick={() => setActiveTab('favoris')}
           >
-            <FaHeart /> Liste de souhaits
+            <FaHeart /> Mes favoris
           </li>
           <li 
             className={activeTab === 'payment' ? 'active' : ''} 
@@ -597,34 +597,34 @@ const Profile = () => {
           </div>
         )}
         
-        {activeTab === 'wishlist' && (
+        {activeTab === 'favoris' && (
           <div className="profile-section">
             <div className="section-header">
-              <h2>Liste de souhaits</h2>
+              <h2>Mes favoris</h2>
             </div>
             
-            {loadingWishlist ? (
+            {loadingFavoris ? (
               <div className="loading-indicator">
                 <div className="spinner-border text-primary" role="status">
                   <span className="visually-hidden">Chargement...</span>
                 </div>
-                <p>Chargement de votre liste de souhaits...</p>
+                <p>Chargement de vos favoris...</p>
               </div>
-            ) : wishlistError ? (
+            ) : favorisError ? (
               <div className="alert alert-danger">
-                {wishlistError}
+                {favorisError}
               </div>
-            ) : wishlist.length > 0 ? (
-              <div className="wishlist-grid">
-                {wishlist.map(item => (
-                  <div className="wishlist-item" key={item.id}>
-                    <div className="wishlist-item-image">
-                      <img src={item.image} alt={item.name} />
+            ) : favoris.length > 0 ? (
+              <div className="favoris-grid">
+                {favoris.map(item => (
+                  <div className="favoris-item" key={item.id}>
+                    <div className="favoris-item-image">
+                      <img src={item.image} alt={item.title} />
                     </div>
-                    <div className="wishlist-item-info">
-                      <h3>{item.name}</h3>
+                    <div className="favoris-item-info">
+                      <h3>{item.title}</h3>
                       <p className="price">{item.price} Dhs</p>
-                      <div className="wishlist-actions">
+                      <div className="favoris-actions">
                         <button 
                           className="btn-add-cart" 
                           onClick={() => handleAddToCart(item)}
@@ -633,7 +633,7 @@ const Profile = () => {
                         </button>
                         <button 
                           className="btn-remove" 
-                          onClick={() => handleRemoveFromWishlist(item.id)}
+                          onClick={() => handleRemoveFromFavoris(item.id)}
                         >
                           Supprimer
                         </button>
@@ -644,7 +644,7 @@ const Profile = () => {
               </div>
             ) : (
               <div className="empty-state">
-                <p>Votre liste de souhaits est vide.</p>
+                <p>Vous n'avez pas encore de favoris.</p>
                 <button className="btn-shop">Explorer les produits</button>
               </div>
             )}
@@ -686,6 +686,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
 
